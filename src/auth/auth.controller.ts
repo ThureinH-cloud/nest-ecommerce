@@ -7,7 +7,7 @@ import { SignInAuthDto } from './dto/sign-in-auth.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post()
+  @Post("/sign-up")
  async signUp(@Body() createAuthDto: SignUpAuthDto) {
     const accessToken=await this.authService.signUp(createAuthDto);
     return {
@@ -15,15 +15,16 @@ export class AuthController {
       data:accessToken
     }
   }
-  // @Post()
-  // signIn(@Body() createAuthDto: SignInAuthDto) {
-  //   return this.authService.create(createAuthDto);
-  // }
-
-  @Get()
-  findAll() {
-    return this.authService.findAll();
+  @Post("/sign-in")
+  async signIn(@Body() createAuthDto: SignInAuthDto) {
+    const accessToken=await this.authService.signIn(createAuthDto);
+    return {
+      message:"Sign In Success",
+      data:accessToken
+    }
   }
+
+  
 
   @Get(':id')
   findOne(@Param('id') id: string) {
