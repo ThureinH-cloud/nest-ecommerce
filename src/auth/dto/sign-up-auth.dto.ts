@@ -3,4 +3,5 @@ export class SignUpAuthDto {
     lastName:string;
     email:string;
     password:string;
+    role:string;
 }

@@ -2,7 +2,7 @@
 https://docs.nestjs.com/guards#guards
 */
 
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { Injectable, CanActivate, ExecutionContext, UnauthorizedException } from '@nestjs/common';
 import {  ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 
@@ -14,11 +14,16 @@ export class AuthGuard implements CanActivate {
   ):  Promise<boolean>  {
     const request=context.switchToHttp().getRequest();
     const token=request.headers.authorization?.split(' ')[1];
-    const currentUser=await this.jwtService.verifyAsync(token,{
-      secret:this.configService.get("JWT_SECRET_KEY")
-    })
-    console.log(currentUser)
-    request.currentUser=currentUser;
-    return true;
+    if(!token) throw new UnauthorizedException();
+    try {
+      const currentUser=await this.jwtService.verifyAsync(token,{
+        secret:this.configService.get("JWT_SECRET_KEY")
+      })
+      request.currentUser=currentUser;
+      return true;
+    } catch (error) {
+      return false;
+    }
+    
   }
 }

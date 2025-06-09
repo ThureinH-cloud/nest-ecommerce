@@ -8,6 +8,8 @@ import { User } from './user/entities/user.entity';
 import { CategoryModule } from './category/category.module';
 import { Category } from './category/entities/category.entity';
 import { AuthModule } from './auth/auth.module';
+import { RoleModule } from './role/role.module';
+import { Role } from './role/entities/role.entity';
 
 @Module({
   imports: [
@@ -23,7 +25,8 @@ import { AuthModule } from './auth/auth.module';
         database: configService.get("DB_NAME"),
         entities: [
           User,
-          Category
+          Category,
+          Role
         ],
         synchronize: true,
       }),
@@ -31,7 +34,8 @@ import { AuthModule } from './auth/auth.module';
     }),
     UserModule,
     CategoryModule,
-    AuthModule
+    AuthModule,
+    RoleModule
   ],
   controllers: [AppController],
   providers: [AppService],
