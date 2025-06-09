@@ -10,6 +10,8 @@ import { Category } from './category/entities/category.entity';
 import { AuthModule } from './auth/auth.module';
 import { RoleModule } from './role/role.module';
 import { Role } from './role/entities/role.entity';
+import { EndpointModule } from './endpoint/endpoint.module';
+import { Endpoint } from './endpoint/entities/endpoint.entity';
 
 @Module({
   imports: [
@@ -26,7 +28,8 @@ import { Role } from './role/entities/role.entity';
         entities: [
           User,
           Category,
-          Role
+          Role,
+          Endpoint
         ],
         synchronize: true,
       }),
@@ -35,7 +38,9 @@ import { Role } from './role/entities/role.entity';
     UserModule,
     CategoryModule,
     AuthModule,
-    RoleModule
+    RoleModule,
+
+    EndpointModule
   ],
   controllers: [AppController],
   providers: [AppService],

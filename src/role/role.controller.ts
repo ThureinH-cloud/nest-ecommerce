@@ -16,16 +16,20 @@ export class RoleController {
   findAll() {
     return this.roleService.findAll();
   }
-
+  
+  @Get(':name')
+  findOne(@Param('name') name: string) {
+    return this.roleService.getRole(name);
+  }
   
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
-    return this.roleService.update(+id, updateRoleDto);
+  @Patch(':name')
+  update(@Param('name') name: string, @Body() updateRoleDto: UpdateRoleDto) {
+    return this.roleService.update(name, updateRoleDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.roleService.remove(+id);
+  @Delete(':name')
+  remove(@Param('name') name: string) {
+    return this.roleService.remove(name);
   }
 }

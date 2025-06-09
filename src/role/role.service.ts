@@ -17,8 +17,9 @@ export class RoleService {
     return this.roleRepository.save(role)
   }
 
-  findAll() {
-    return `This action returns all role`;
+  async findAll() {
+    const roles=await this.roleRepository.find();
+    return roles
   }
 
   async getRole(name:string) {
@@ -33,11 +34,15 @@ export class RoleService {
     return role
   }
 
-  update(id: number, updateRoleDto: UpdateRoleDto) {
-    return `This action updates a #${id} role`;
+  async update(name:string, updateRoleDto: UpdateRoleDto) {
+    const role=await this.getRole(name)
+    role.description=updateRoleDto.description!;
+    return this.roleRepository.save(role)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} role`;
+  async remove(name:string) {
+    const role=await this.getRole(name);
+    role.isActive=false;
+    return this.roleRepository.save(role)
   }
 }
